@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
+use App\Http\Requests\QuizCreateRequest;
+use App\Http\Requests\QuizUpdateRequest;
+
 
 class QuizzesController extends Controller
 {
@@ -27,7 +30,7 @@ class QuizzesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.quizzes.create');
     }
 
     /**
@@ -36,9 +39,11 @@ class QuizzesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuizCreateRequest $request)
     {
-        //
+        Quiz::create($request->post());
+
+        return redirect()->route('admin.quizzes.index')->withSuccess('Quiz əlavə olundu!');
     }
 
     /**
@@ -60,7 +65,9 @@ class QuizzesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $quiz = Quiz::findOrFail($id);
+
+        return view('admin.quizzes.edit',['quiz'=>$quiz]);
     }
 
     /**
@@ -70,9 +77,13 @@ class QuizzesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuizUpdateRequest $request, $id)
     {
-        //
+        $quiz = Quiz::findOrFail($id);
+        
+        $quiz->update($request->only(['title','description','finished_at']));
+
+        return redirect()->route('admin.quizzes.edit', ['quiz'=>$quiz->id])->withSuccess('Quiz yeniləndi!');
     }
 
     /**
@@ -81,8 +92,10 @@ class QuizzesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Quiz $quiz)
     {
-        //
+        $quiz->delete();
+
+        return redirect()->route('admin.quizzes.index')->withSuccess('Quiz silindi!');
     }
 }
