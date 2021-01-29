@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::prefix('admin')->name('admin.')->middleware(['auth','isAdmin'])->group(function(){
+    Route::get('');
+});
