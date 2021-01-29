@@ -9,6 +9,7 @@
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
+                
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -92,10 +93,16 @@
 
                         <x-slot name="content">
                             <!-- Account Management -->
+                            @if (auth()->user()->type==='admin')
+                                <x-jet-dropdown-link href="{{ route('admin.quizzes.index') }}">
+                                    Quizlər
+                                </x-jet-dropdown-link>
+                            @endif
+                            
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
-
+                            
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
@@ -159,6 +166,9 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('admin.quizzes.index') }}" :active="request()->routeIs('admin.quizzes.index')">
+                    Quizlər
+                </x-jet-responsive-nav-link>
                 <!-- Account Management -->
                 <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
