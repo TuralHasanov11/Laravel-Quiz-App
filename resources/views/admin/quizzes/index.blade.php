@@ -73,7 +73,7 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {{$quiz->finished_at?$quiz->finished_at:'Yoxdur'}}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex flex-wrap justify-around ">
                             <a href="{{route('admin.quizzes.edit', ['quiz'=>$quiz->id])}}" class="inline-flex items-center text-blue-600 hover:text-blue-900">
                                 <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
@@ -82,7 +82,12 @@
                                 Edit
                             </a>
 
-                           
+                            <a href="{{route('admin.quizzes.questions.index', ['quiz'=>$quiz])}}" class="inline-flex items-center text-indigo-600 hover:text-indigo-900">
+                                <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                                </svg>
+                                Suallar
+                            </a>
                         </td>
                     </tr>
                     @endforeach
