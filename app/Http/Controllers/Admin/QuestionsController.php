@@ -19,7 +19,7 @@ class QuestionsController extends Controller
      */
     public function index(Quiz $quiz)
     {
-        $quiz->load('questions');
+        $quiz->load('questions.answers');
 
         return view('admin.questions.index', [
             'quiz'=>$quiz
@@ -135,8 +135,11 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Quiz $quiz, Question $question)
     {
-        //
+        $quiz->questions()->whereId($question->id)->delete();
+
+        return redirect()->route('admin.quizzes.questions.index', ['quiz'=>$quiz])->withSuccess('Sual silindi!');
+
     }
 }

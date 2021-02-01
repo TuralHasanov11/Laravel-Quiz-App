@@ -46,6 +46,21 @@
                         Şəkil
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        1. Cavab 
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        2. Cavab 
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        3. Cavab 
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        4. Cavab 
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Doğru Cavab
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Əməliyyatlar
                     </th>
                 </tr>
@@ -72,6 +87,23 @@
                                 
                             </span>
                         </td>
+                        
+                        @foreach ($question->answers as $answer)
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-sm leading-5 font-semibold rounded-full ">
+                                    {{$answer->answer}}
+                                </span>
+                            </td>
+                        @endforeach
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-sm text-green-700 leading-5 font-semibold rounded-full ">
+                                @foreach ($question->answers as $answer)
+                                    @if ($answer->type==='correct')
+                                        {{$answer->answer}}
+                                    @endif
+                                @endforeach
+                            </span>
+                        </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex flex-wrap justify-around">
                             <a href="{{route('admin.quizzes.questions.edit', ['quiz'=>$quiz, 'question'=>$question])}}" class="inline-flex items-center text-blue-600 hover:text-blue-900">
                                 <svg class="mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -80,13 +112,6 @@
                                 </svg>
                                 Edit
                             </a>
-
-                            {{-- <a href="{{route('admin.quizzes.questions.answers.index', ['quiz'=>$quiz, 'question'=>$question])}}" class="inline-flex items-center text-yellow-700 hover:text-yellow-900">
-                                <svg class="mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                                </svg>
-                                Cavablar
-                            </a> --}}
                         </td>
                     </tr>
                     @endforeach

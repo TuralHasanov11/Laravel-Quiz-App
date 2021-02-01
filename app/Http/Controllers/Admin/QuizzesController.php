@@ -18,7 +18,7 @@ class QuizzesController extends Controller
      */
     public function index()
     {
-        $quizzes=Quiz::paginate(3);
+        $quizzes=Quiz::withCount('questions')->paginate(10);
 
         return view('admin.quizzes.index', ['quizzes'=>$quizzes]);
     }
@@ -65,7 +65,7 @@ class QuizzesController extends Controller
      */
     public function edit($id)
     {
-        $quiz = Quiz::findOrFail($id);
+        $quiz = Quiz::withCount('questions')->findOrFail($id);
 
         return view('admin.quizzes.edit',['quiz'=>$quiz]);
     }
@@ -80,8 +80,7 @@ class QuizzesController extends Controller
     public function update(QuizUpdateRequest $request, $id)
     {
         $quiz = Quiz::findOrFail($id);
-        
-        $quiz->update($request->only(['title','description','finished_at']));
+        $quiz->update($request->only(['title','description','finished_at', 'status']));
 
         return redirect()->route('admin.quizzes.edit', ['quiz'=>$quiz->id])->withSuccess('Quiz yeniləndi!');
     }

@@ -37,6 +37,9 @@
                         Quiz
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Sual sayı
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Status
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -58,6 +61,9 @@
                             {{$quiz->title}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
+                            {{$quiz->questions_count}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @if ($quiz->status==='draft')
                                 bg-yellow-100 text-yellow-800
                             @endif 
@@ -67,11 +73,23 @@
                             @if ($quiz->status==='passive')
                             bg-red-100 text-red-800
                             @endif">
-                                {{$quiz->status}}
+                                @switch($quiz->status)
+                                    @case('active')
+                                        Aktiv
+                                        @break
+                                    @case('passive')
+                                        Passiv
+                                        @break
+                                    @case('draft')
+                                        Gözləmədə
+                                        @break
+                                    @default
+                                        
+                                @endswitch
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{$quiz->finished_at?$quiz->finished_at:'Yoxdur'}}
+                            <span title="{{$quiz->finished_at?$quiz->finished_at:null}}">{{$quiz->finished_at?$quiz->finished_at->diffForHumans():'Yoxdur'}}</span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex flex-wrap justify-around ">
                             <a href="{{route('admin.quizzes.edit', ['quiz'=>$quiz->id])}}" class="inline-flex items-center text-blue-600 hover:text-blue-900">

@@ -56,6 +56,32 @@
                 </div>
                 </div>
               </div>
+
+              <div class="grid gap-6">
+                <div class="col-span-3 sm:col-span-2">
+                  <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                  <select id="status" name="status" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                      <option value="draft" @if ($quiz->status==='draft')
+                          selected
+                        @endif>Gözləmədə
+                      </option>
+                      <option @if ($quiz->questions_count<4)
+                          disabled
+                      @endif value="active" @if ($quiz->status==='active')
+                            selected
+                          @endif>Aktiv
+                      </option>
+                      
+                      <option value="passive" @if ($quiz->status==='passive')
+                            selected
+                          @endif>Passiv
+                      </option>
+                  </select>
+                </div>
+              </div>
+
+
+          
               
             </div>
             
