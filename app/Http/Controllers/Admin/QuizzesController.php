@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Http\Requests\QuizCreateRequest;
 use App\Http\Requests\QuizUpdateRequest;
+use Illuminate\Support\Str;
 
 
 class QuizzesController extends Controller
@@ -51,7 +52,10 @@ class QuizzesController extends Controller
      */
     public function store(QuizCreateRequest $request)
     {
-        Quiz::create($request->post());
+        $data = $request->post();
+        $data = array_merge($data,['slug'=>Str::slug($data['title'])]);
+
+        Quiz::create($data);
 
         return redirect()->route('admin.quizzes.index')->withSuccess('Quiz əlavə olundu!');
     }
@@ -89,8 +93,12 @@ class QuizzesController extends Controller
      */
     public function update(QuizUpdateRequest $request, $id)
     {
+        $data = $request->only(['title','description','finished_at', 'status']);
+        $data = array_merge($data,['slug'=>Str::slug($data['title'])]);
+
         $quiz = Quiz::findOrFail($id);
-        $quiz->update($request->only(['title','description','finished_at', 'status']));
+        
+        $quiz->update($data);
 
         return redirect()->route('admin.quizzes.edit', ['quiz'=>$quiz->id])->withSuccess('Quiz yeniləndi!');
     }

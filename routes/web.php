@@ -2,15 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\MainController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+route::middleware(['auth'])->group(function(){
+    Route::get('dashboard', [MainController::class,'dashboard'])->name('dashboard');
+
+    Route::get('quiz/{slug}', [MainController::class,'show'])->name('quizzes.show');
+
+});
 
 Route::prefix('admin')->name('admin.')->middleware(['auth','isAdmin'])->group(function(){
     Route::resource('quizzes',Admin\QuizzesController::class);

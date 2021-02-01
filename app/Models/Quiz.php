@@ -11,7 +11,7 @@ class Quiz extends Model
     use HasFactory;
     
     protected $fillable=[
-        'title', 'description', 'finished_at', 'status'
+        'title', 'description', 'finished_at', 'status', 'slug'
     ];
 
     protected $dates=['finished_at'];
@@ -20,7 +20,14 @@ class Quiz extends Model
         return $date ? Carbon::parse($date) : null;
     }
 
+    public function getQuizDate(){
+        $date = Carbon::parse($this->finished_at);
+        return $date->isoFormat('ll');
+    }
+
     public function questions(){
         return $this->hasMany('App\Models\Question');
     }
+
+    
 }
