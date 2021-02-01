@@ -3,11 +3,13 @@
         Əsas Səhifə
     </x-slot>
 
-    <div class="grid grid-cols-12">
-        <div class="col-span-8 grid grid-cols-12 md:grid-cols-6">
+    <div class="grid grid-cols-12 bg-gray-100 gap-2">
+        <div class="col-span-12 md:col-span-9 ">
+            
+          <div class="w-full grid grid-cols-12 md:grid-cols-6 gap-2">
             @foreach ($quizzes as $quiz)
-            <a href="{{route('quizzes.show', ['slug'=>$quiz->slug])}}" class="quiz col-span-12 md:col-span-3">
-                <div class="max-w-sm rounded overflow-hidden shadow-lg">
+            <a href="{{route('quizzes.details', ['slug'=>$quiz->slug])}}" class="bg-white quiz col-span-12 md:col-span-3 rounded">
+                <div class="max-w h-full shadow-lg">
                     <div class="px-6 py-4">
                       <div class="font-bold text-xl mb-2">{{$quiz->title}}</div>
                       <p class="text-gray-700 text-base">
@@ -19,18 +21,20 @@
                             <p class="text-yellow-700">{{$quiz->finished_at?$quiz->finished_at->diffForHumans()." sonra bitir":null}}</p>
                         </div>
                       <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{$quiz->getQuizDate()}}</span>
-                      
                     </div>
                 </div>
             </a>
             @endforeach
+          </div>
     
-            <div class="col-span-12 p-3">
+            
+           <div class="container">
                 {{$quizzes->links()}}
             </div>
-           
         </div>
-        <div class="col-span-4">
+
+        
+        <div class="col-span-12 md:col-span-3">
             <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">
                   <h3 class="text-lg leading-6 font-medium text-gray-900">

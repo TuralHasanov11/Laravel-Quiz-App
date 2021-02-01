@@ -63,25 +63,33 @@
                 <div class="grid grid-cols-6 gap-6">
                     <div class="col-span-6 sm:col-span-3">
                         <label for="answer1" class="block text-sm font-medium text-gray-700">1. Cavab</label>
-                        <input type="text" name="answers[1]" id="answer1" value="{{$question->answers[0]->answer}}"
+                        <input type="text" name="answers[1]" id="answer1" value="@if (isset($question->answers[0]))
+                            {{$question->answers[0]->answer}}
+                        @endif"
                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
     
                     <div class="col-span-6 sm:col-span-3">
                         <label for="answer2" class="block text-sm font-medium text-gray-700">2. Cavab</label>
-                        <input type="text" name="answers[2]" id="answer2" value="{{$question->answers[1]->answer}}"
+                        <input type="text" name="answers[2]" id="answer2" value="@if (isset($question->answers[1]))
+                            {{$question->answers[1]->answer}}
+                        @endif"
                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
     
                     <div class="col-span-6 sm:col-span-3">
                         <label for="answer3" class="block text-sm font-medium text-gray-700">3. Cavab</label>
-                        <input type="text" name="answers[3]" id="answer3" value="{{$question->answers[2]->answer}}"
+                        <input type="text" name="answers[3]" id="answer3" value="@if (isset($question->answers[2]))
+                            {{$question->answers[2]->answer}}
+                        @endif"
                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
                         <label for="answer4" class="block text-sm font-medium text-gray-700">4. Cavab</label>
-                        <input type="text" name="answers[4]" id="answer4" value="{{$question->answers[3]->answer}}"
+                        <input type="text" name="answers[4]" id="answer4" value="@if (isset($question->answers[3]))
+                            {{$question->answers[3]->answer}}
+                        @endif"
                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
 
@@ -89,19 +97,19 @@
                         <label for="correct_answer" class="block text-sm font-medium text-gray-700">Doğru cavab</label>
                         <select id="correct_answer" name="correct_answer" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option>Doğru cavabı seçin</option>
-                            <option value="1" @if ($question->answers[0]->type==='correct')
+                            <option value="1" @if (isset($question->answers[0]) && $question->answers[0]->type==='correct')
                                     selected
                                 @endif>1. Cavab
                             </option>
-                            <option value="2" @if ($question->answers[1]->type==='correct')
+                            <option value="2" @if (isset($question->answers[1]) && $question->answers[1]->type==='correct')
                                     selected
                                 @endif>2. Cavab
                             </option>
-                            <option value="3" @if ($question->answers[2]->type==='correct')
+                            <option value="3" @if (isset($question->answers[2]) && $question->answers[2]->type==='correct')
                                     selected
                                 @endif>3. Cavab
                             </option>
-                            <option value="4" @if ($question->answers[3]->type==='correct') 
+                            <option value="4" @if (isset($question->answers[3]) && $question->answers[3]->type==='correct') 
                                     selected 
                                 @endif>4. Cavab
                             </option>

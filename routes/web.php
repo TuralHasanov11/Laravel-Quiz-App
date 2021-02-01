@@ -12,7 +12,8 @@ Route::get('/', function () {
 route::middleware(['auth'])->group(function(){
     Route::get('dashboard', [MainController::class,'dashboard'])->name('dashboard');
 
-    Route::get('quiz/{slug}', [MainController::class,'show'])->name('quizzes.show');
+    Route::get('quizzes/{slug}', [MainController::class,'show'])->name('quizzes.show');
+    Route::get('quizzes/{slug}/details', [MainController::class,'details'])->name('quizzes.details');
 
 });
 
