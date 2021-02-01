@@ -3798,6 +3798,9 @@ __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js"); /
 // window.jQuery=$;
 // window.$=$;
 
+
+__webpack_require__(/*! ./main */ "./resources/js/main.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -3828,6 +3831,20 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/main.js":
+/*!******************************!*\
+  !*** ./resources/js/main.js ***!
+  \******************************/
+/***/ (() => {
+
+var resetSearchBtn = document.getElementById('resetSearch');
+resetSearchBtn.addEventListener('click', function (e) {
+  document.querySelector('input#title').value = '';
+  document.querySelector('select#status').selectedIndex = 0;
+});
 
 /***/ }),
 

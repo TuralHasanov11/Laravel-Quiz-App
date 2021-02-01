@@ -24,7 +24,50 @@
 
     {{-- Quizzes Table --}}
     <div class="flex flex-col">
+        <div class="mt-5 md:mt-0 md:col-span-2">
+            <form action="" method="GET">
+              <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                  <div class="grid grid-cols-12 gap-6">
+                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                      <div class="mt-1 flex rounded shadow-sm">
+                        <input type="text" name="title" id="title" value="{{request()->get('title')}}" placeholder="Sual"
+                          class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300">
+                      </div>
+                    </div>
+
+                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                        <select id="status" onchange="this.form.submit();" name="status" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="">Bütün</option>
+                            <option @if (request()->get('status') === 'active')
+                                selected
+                            @endif value="active">Aktiv</option>
+                            <option @if (request()->get('status') === 'draft')
+                                selected
+                            @endif value="draft">Gözləmədə</option>
+                            <option @if (request()->get('status') === 'passive')
+                                selected
+                            @endif value="passive">Passiv</option>
+                        </select>
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-6 lg:col-span-3">
+                        <div class="px-4 py-1 text-left sm:px-6">
+                            <button type="button" id="resetSearch" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Sıfırla
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                  
+                </div>
+                
+               
+              </div>
+            </form>
+          </div>
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                
         <div class="py-3 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg px-1">
             <table class="min-w-full divide-y divide-gray-200">
@@ -114,7 +157,7 @@
             </table>      
             </div>
             <div class="py-3 px-1">
-                {{$quizzes->links()}}
+                {{$quizzes->withQueryString()->links()}}
             </div>
         </div>
         </div>

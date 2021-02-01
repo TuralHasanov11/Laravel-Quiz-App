@@ -6,3 +6,4 @@ require('alpinejs');
 // import $ from 'jquery';
 // window.jQuery=$;
 // window.$=$;
+require('./main');
