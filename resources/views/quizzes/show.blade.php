@@ -5,7 +5,7 @@
 
     <div class="md:container md:mx-auto">
         
-        <form action="{{route('')}}" method="post">
+        <form action="{{route('quizzes.result', ['quiz'=>$quiz])}}" method="post">
 
             @foreach ($quiz->questions as $key => $question)
             <div class="max-w rounded overflow-hidden shadow-lg bg-white my-5">
@@ -21,7 +21,7 @@
                 <fieldset>
                     @foreach ($question->answers as $answer)
                         <div class="flex items-center text-base leading-9">
-                            <input id="question{{$question->id}}Answer{{$answer->id}}" name="question{{$question->id}}" value="{{$answer->id}}" type="radio" required class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                            <input id="question{{$question->id}}Answer{{$answer->id}}" name="{{$question->id}}" value="{{$answer->id}}" type="radio" required class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
                             <label for="question{{$question->id}}Answer{{$answer->id}}" class="ml-3 block font-medium text-gray-700">
                             {{$answer->answer}}
                             </label>
@@ -38,7 +38,7 @@
                 Təsdiqlə
                 </button>
             </div>
-
+            @csrf
         </form>
     </div>
    

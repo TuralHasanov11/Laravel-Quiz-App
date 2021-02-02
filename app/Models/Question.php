@@ -18,4 +18,10 @@ class Question extends Model
     public function answers(){
         return $this->hasMany('App\Models\Answer');
     }
+
+    public function users(){
+        return $this->belongsToMany('App\Models\User', 'question_user')
+                        ->withPivot('answer')
+                        ->withTimestamps();
+    }
 }

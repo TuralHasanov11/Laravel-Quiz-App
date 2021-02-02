@@ -13,6 +13,7 @@ route::middleware(['auth'])->group(function(){
     Route::get('dashboard', [MainController::class,'dashboard'])->name('dashboard');
 
     Route::get('quizzes/{slug}', [MainController::class,'show'])->name('quizzes.show');
+    Route::post('quizzes/{quiz}/result', [MainController::class,'result'])->name('quizzes.result');
     Route::get('quizzes/{slug}/details', [MainController::class,'details'])->name('quizzes.details');
 
 });

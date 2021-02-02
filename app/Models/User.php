@@ -58,4 +58,16 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function questions(){
+        return $this->belongsToMany('App\Models\Question', 'question_user')
+                        ->withPivot('answer')
+                        ->withTimestamps();
+    }
+
+    public function quizzes(){
+        return $this->belongsToMany('App\Models\Quiz', 'quiz_user')
+                        ->withPivot('score','correct_answers_count', 'wrong_answers_count')
+                        ->withTimestamps();
+    }
 }

@@ -26,8 +26,12 @@ class Quiz extends Model
     }
 
     public function questions(){
-        return $this->hasMany('App\Models\Question');
+        return $this->hasMany('App\Models\Question');              
     }
 
-    
+    public function users(){
+        return $this->belongsToMany('App\Models\User', 'quiz_user')
+                        ->withPivot('score','correct_answers_count', 'wrong_answers_count')
+                        ->withTimestamps();
+    }
 }
