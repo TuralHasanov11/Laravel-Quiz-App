@@ -20,10 +20,13 @@ class MainController extends Controller
 
     public function details($slug){
         $quiz=Quiz::whereSlug($slug)
-                ->withCount('questions')
+                ->with(['topTenUsers'])
+                ->withCount(['questions'])
                 ->where('status','active')
                 ->first() ?? abort(404);
 
+        // $quiz->setUserAttribute($quiz->users);
+        // return $quiz;
         return view('quizzes.details',['quiz'=>$quiz]);
     }
 
@@ -39,6 +42,10 @@ class MainController extends Controller
     }
 
     public function result(Request $request, Quiz $quiz){
+
+        if($quiz->current_user!=null){
+            abort(403, 'Bu quizə daha öncə qatılmısınız!');
+        }
 
         $data = $request->except('_token');
 
