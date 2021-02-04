@@ -7,13 +7,23 @@
         <div class="w-full md:w-1/2 lg:w-1/3 mb-4 bg-white">
               <dl>
                 @if ($quiz->current_user)
-                <div class="bg-white-100 px-4 py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                <div class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
                   <dt class="text-sm font-medium text-gray-500 sm:col-span-4">
                     Əldə etdiyiniz nəticə
                   </dt>
                   <dd class="mt-1 text-right text-sm text-green-900 sm:mt-0 sm:col-span-2">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                       {{$quiz->current_user->pivot->score}}
+                    </span>
+                  </dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt class="text-sm font-medium text-gray-500 sm:col-span-4">
+                    Sıralamada yeriniz
+                  </dt>
+                  <dd class="mt-1 text-right text-sm text-green-900 sm:mt-0 sm:col-span-2">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      {{$quiz->current_user->rank}}
                     </span>
                   </dd>
                 </div>
@@ -97,7 +107,7 @@
                 @else
                   bg-gray-100  
                 @endif px-4 py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500 sm:col-span-5">
+                  <dt class="text-sm font-medium sm:col-span-5">
                     {{$key+1}}.
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                           <img class="inline-block h-6 w-6 mb-0.5 mx-0.5 rounded-full object-cover" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" />
@@ -109,10 +119,16 @@
                             </svg>
                         </div>
                     @endif
-                     {{$user->name}}
+                    <span class="@if ($user->id===auth()->id())
+                          text-green-500
+                      @else
+                        text-gray-500
+                      @endif"
+                    >{{$user->name}}</span>
+                     
                   </dt>
-                  <dd class="mt-1 text-right text-sm text-green-900 sm:mt-0 sm:col-span-1">
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                  <dd class="mt-1 text-right text-sm text-blue-900 sm:mt-0 sm:col-span-1">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                       {{$user->pivot->score}}
                     </span>
                   </dd>

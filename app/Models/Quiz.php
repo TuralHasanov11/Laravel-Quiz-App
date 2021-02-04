@@ -17,9 +17,6 @@ class Quiz extends Model
 
     protected $dates=['finished_at'];
 
-    // protected $attributes=[
-    //     'current_user'
-    // ];
 
     protected $appends = ['users_details', 'current_user'];
 
@@ -33,8 +30,18 @@ class Quiz extends Model
     }
 
     public function getCurrentUserAttribute(){
-        return $this->users()->find(auth()->id());
-    }
+
+        $rank=0;
+        foreach ($this->users()->orderByDesc('score')->get() as $key => $user) {
+            $rank++;
+            if($user->id === auth()->id()){
+                break;
+            }
+        }
+        $data = $this->users()->find(auth()->id());
+        $data->rank=$rank;
+        return $data;
+    } 
 
     public function getUsersDetailsAttribute(){
         return [

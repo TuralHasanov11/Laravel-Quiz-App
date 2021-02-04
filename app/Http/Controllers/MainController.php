@@ -25,8 +25,6 @@ class MainController extends Controller
                 ->where('status','active')
                 ->first() ?? abort(404);
 
-        // $quiz->setUserAttribute($quiz->users);
-        // return $quiz;
         return view('quizzes.details',['quiz'=>$quiz]);
     }
 
@@ -34,9 +32,13 @@ class MainController extends Controller
 
         $quiz=Quiz::where('slug',$slug)
             ->where('status','active')
-            ->with('questions')
+            ->with(['questions'])
             ->first()??abort(404);
 
+        if($quiz->current_user){
+            // return $quiz;
+            return view('quizzes.results', ['quiz'=>$quiz]);
+        }
 
         return view('quizzes.show',['quiz'=>$quiz]);
     }
