@@ -6,16 +6,24 @@ use Illuminate\Http\Request;
 use App\Models\Quiz;
 use Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
     public function dashboard(){
         $quizzes=Quiz::where('status','active')
+                    ->where(function($query){
+                        $query->whereNull('finished_at')->orWhere('finished_at','>',now());
+                    })
                     ->withCount('questions')
                     ->orderBy('updated_at','desc')
                     ->paginate(6);
 
-        return view('dashboard',['quizzes'=>$quizzes]);
+        $user = Auth::user()->load(['quizzes'=>function($query){
+            $query->orderByDesc('created_at')->take(10);
+        }]);
+        // return $userResults;
+        return view('dashboard',['quizzes'=>$quizzes, 'user'=>$user]);
     }
 
     public function details($slug){

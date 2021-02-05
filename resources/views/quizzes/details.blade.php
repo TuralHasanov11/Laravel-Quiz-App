@@ -144,13 +144,16 @@
                   {{$quiz->description}}
                 </p>
                 <div class="mt-6 text-center text-sm text-gray-500">
-                    <a href="{{route('quizzes.show', ['slug'=>$quiz->slug])}}" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                       @if ($quiz->current_user)
-                        Quizi görüntülə
-                        @else
-                        Quizə qatıl
+                        <a href="{{route('quizzes.show', ['slug'=>$quiz->slug])}}" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300">
+                            Quizi görüntülə
+                        </a>                      
+                        @elseif($quiz->finished_at > now())
+                        <a href="{{route('quizzes.show', ['slug'=>$quiz->slug])}}" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                          Quizə qatıl
+                        </a>
+                       
                       @endif
-                  </a>
                 </div>
               </div>
           </div>

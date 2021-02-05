@@ -18,7 +18,7 @@ class Quiz extends Model
     protected $dates=['finished_at'];
 
 
-    protected $appends = ['users_details', 'current_user'];
+    protected $appends = ['users_details', 'current_user'=>null];
 
     public function getFinishedAtAttribute($date){
         return $date ? Carbon::parse($date) : null;
