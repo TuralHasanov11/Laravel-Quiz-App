@@ -44,14 +44,14 @@
             </div>
             <p class="ml-4 text-sm text-blue-500 block font-bold">İstifadəçilərin {{$question->correct_percentage}}%-i bu suala doğru cavab verib</p>
                 @if ($question->image)
-                    <img class="md:w-1/2 w-full max-h-48 md:max-h-60 lg:max-h-80 xl:max-h-96" src="{{asset('storage/'.$question->image)}}" alt="Sunset in the mountains">
+                    <img class="md:w-1/2 w-full max-h-48 md:max-h-60 lg:max-h-80 xl:max-h-96" src="{{asset($question->image)}}" alt="{{$question->question}}">
                 @endif
             </div>
             <div class="px-6 py-4">
             
             <fieldset>
                 @foreach ($question->answers as $answer)
-                    <div class="flex items-center text-base leading-9">
+                    <div class="flex items-center text-lg text-base leading-9 bg-gray-100 hover:bg-gray-200 my-2 pl-2 py-2">
                         @if ($answer->id === $question->correct_answer->id)
                         <svg class="ml-2 -mr-0.5 h-4 w-4 text-green-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />

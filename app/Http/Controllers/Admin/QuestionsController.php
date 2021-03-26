@@ -12,11 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class QuestionsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index(Quiz $quiz)
     {
         $quiz->load('questions.answers');
@@ -26,31 +22,21 @@ class QuestionsController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create(Quiz $quiz)
     {
         return view('admin.questions.create',['quiz'=>$quiz]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(QuestionCreateRequest $request, Quiz $quiz)
     {
         $data = $request->all();
         
         if($request->has('image')){
             $fileName=Str::slug($data['question']).'_'.time().'.'.$data['image']->extension();
-            $fileDirectory = 'question-images/'.$fileName;
-            // $request->image->move(public_path('question-images'),$fileName);
-            $request->image->storeAs('public/question-images',$fileName);
+            $fileDirectory = 'question-images/'.$quiz->id.'/'.$fileName;
+            // $request->image->move(public_path('question-images/'.$quiz->id),$fileName);
         }
 
         $question = new Question(['question'=>$data['question'], 'image'=>$fileDirectory]);
@@ -66,23 +52,6 @@ class QuestionsController extends Controller
         return redirect()->route('admin.quizzes.questions.index',['quiz'=>$quiz])->withSuccess('Sual əlavə olundu!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($quiz, $question)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Quiz $quiz,Question $question)
     {
         $question->load('answers');
@@ -90,30 +59,26 @@ class QuestionsController extends Controller
         return view('admin.questions.edit',['quiz'=>$quiz,'question'=>$question]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(QuestionCreateRequest $request, Quiz $quiz, Question $question)
     {
         $data = $request->all();
 
         if($request->has('image')){
             $fileName=Str::slug($data['question']).'_'.time().'.'.$data['image']->extension();
-            $fileDirectory = 'question-images/'.$fileName;
-            $request->image->storeAs('public/question-images',$fileName);
-            Storage::delete('public/'.$question->image);
+            $fileDirectory = 'question-images/'.$quiz->id.'/'.$fileName;
+
+            // $request->image->move(public_path('question-images/'.$quiz->id),$fileName);
+            
+            if($question->image && file_exists(public_path($question->image))){
+                unlink(public_path($question->image));
+            }
+
+            $question->image=$fileDirectory;
         }
 
         $question->question=$data['question'];
-        if(isset($fileDirectory)){
-            $question->image=$fileDirectory;
-        }
         $question->save();
-
+        
         $question->load('answers');
 
         foreach ($question->answers as $key => $answer) {
@@ -129,15 +94,14 @@ class QuestionsController extends Controller
         ])->withSuccess('Sual yeniləndi!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Quiz $quiz, Question $question)
     {
         $quiz->questions()->whereId($question->id)->delete();
+
+        if($question->image && file_exists(public_path($question->image))){
+            unlink(public_path($question->image));
+        }
+
 
         return redirect()->route('admin.quizzes.questions.index', ['quiz'=>$quiz])->withSuccess('Sual silindi!');
 

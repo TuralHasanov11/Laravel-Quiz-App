@@ -18,28 +18,34 @@ class Quiz extends Model
     protected $dates=['finished_at'];
 
 
-    protected $appends = ['users_details', 'current_user'=>null];
+    protected $appends = ['users_details', 'current_user'];
 
-    public function getFinishedAtAttribute($date){
-        return $date ? Carbon::parse($date) : null;
+    // public function getFinishedAtAttribute($date){
+    //     return $date ? Carbon::parse($date) : null;
+    // }
+
+    public function getCreatedAt(){
+        return $this->created_at->isoFormat('ll');
     }
 
-    public function getQuizDate(){
-        $date = Carbon::parse($this->finished_at);
-        return $date->isoFormat('ll');
+    public function getFinishedAt(){
+        return $this->finished_at->isoFormat('ll');
     }
 
     public function getCurrentUserAttribute(){
 
         $rank=0;
-        foreach ($this->users()->orderByDesc('score')->get() as $key => $user) {
-            $rank++;
+        foreach ($this->users()->get() as $key => $user) {
             if($user->id === auth()->id()){
+                $rank = $key+1;
                 break;
             }
         }
-        $data = $this->users()->find(auth()->id());
-        $data->rank=$rank;
+        
+        if($data = $this->users()->find(auth()->id())){
+            $data->rank=$rank;
+        }
+        
         return $data;
     } 
 

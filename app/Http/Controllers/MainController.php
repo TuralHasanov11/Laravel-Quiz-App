@@ -17,12 +17,12 @@ class MainController extends Controller
                     })
                     ->withCount('questions')
                     ->orderBy('updated_at','desc')
-                    ->paginate(6);
-
+                    ->paginate(10);
+        
         $user = Auth::user()->load(['quizzes'=>function($query){
             $query->orderByDesc('created_at')->take(10);
         }]);
-        // return $userResults;
+
         return view('dashboard',['quizzes'=>$quizzes, 'user'=>$user]);
     }
 
@@ -32,7 +32,7 @@ class MainController extends Controller
                 ->withCount(['questions'])
                 ->where('status','active')
                 ->first() ?? abort(404);
-
+        
         return view('quizzes.details',['quiz'=>$quiz]);
     }
 
@@ -44,7 +44,6 @@ class MainController extends Controller
             ->first()??abort(404);
 
         if($quiz->current_user){
-            // return $quiz;
             return view('quizzes.results', ['quiz'=>$quiz]);
         }
 

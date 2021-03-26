@@ -4,34 +4,34 @@
     </x-slot>
 
     <div class="flex flex-wrap justify-between">
-        <div class="w-full md:w-1/2 lg:w-1/3 mb-4 bg-white">
+        <div class="w-full md:w-1/2 lg:w-1/3 mb-4 bg-white border">
               <dl>
                 @if ($quiz->current_user)
-                <div class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500 sm:col-span-4">
+                <div class="bg-gray-100 px-4 py-5 grid grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt class="text-sm font-medium text-gray-500 col-span-4">
                     Əldə etdiyiniz nəticə
                   </dt>
-                  <dd class="mt-1 text-right text-sm text-green-900 sm:mt-0 sm:col-span-2">
+                  <dd class="text-right text-sm text-green-900 sm:mt-0 col-span-2">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                       {{$quiz->current_user->pivot->score}}
                     </span>
                   </dd>
                 </div>
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500 sm:col-span-4">
+                <div class="bg-white px-4 py-5 grid grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt class="text-sm font-medium text-gray-500 col-span-4">
                     Sıralamada yeriniz
                   </dt>
-                  <dd class="mt-1 text-right text-sm text-green-900 sm:mt-0 sm:col-span-2">
+                  <dd class="text-right text-sm text-green-900 sm:mt-0 col-span-2">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                       {{$quiz->current_user->rank}}
                     </span>
                   </dd>
                 </div>
-                <div class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500 sm:col-span-3">
+                <div class="bg-gray-100 px-4 py-5 grid grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt class="text-sm font-medium text-gray-500 col-span-3">
                     Doğru / Yanlış cavab sayı
                   </dt>
-                  <dd class="mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-3">
+                  <dd class="text-right text-sm text-gray-900 sm:mt-0 col-span-3">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-300 text-green-900">
                       {{$quiz->current_user->pivot->correct_answers_count}} Doğru
                     </span>
@@ -42,22 +42,22 @@
                 </div>
                 @endif
                 @if ($quiz->finished_at)
-                <div class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500 sm:col-span-4">
+                <div class="bg-gray-100 px-4 py-5 grid grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt class="text-sm font-medium text-gray-500 col-span-4">
                     Son qatılım tarixi 
                   </dt>
-                  <dd class="mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <span title="{{$quiz->getQuizDate()}}" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                  <dd class="text-right text-sm text-gray-900 sm:mt-0 col-span-2">
+                    <span title="{{$quiz->getFinishedAt()}}" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                       {{$quiz->finished_at->diffForHumans()}}
                     </span>
                   </dd>
                 </div>
                 @endif
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500 sm:col-span-4">
+                <div class="bg-white px-4 py-5 grid grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt class="text-sm font-medium text-gray-500 col-span-4">
                     Sual sayı 
                   </dt>
-                  <dd class="mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <dd class="text-right text-sm text-gray-900 sm:mt-0 col-span-2">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                       {{$quiz->questions_count}}
                     </span>
@@ -65,22 +65,22 @@
                   </dd>
                 </div>
                 @if ($quiz->users_details['users_count'] > 0)
-                <div class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500 sm:col-span-4">
+                <div class="bg-gray-100 px-4 py-5 grid grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt class="text-sm font-medium text-gray-500 col-span-4">
                     Qatılanların sayı
                   </dt>
-                  <dd class="mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <dd class="text-right text-sm text-gray-900 sm:mt-0 col-span-2">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                       {{$quiz->users_details['users_count']}}
                     </span>
                     
                   </dd>
                 </div>
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium text-gray-500 sm:col-span-4">
+                <div class="bg-white px-4 py-5 grid grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt class="text-sm font-medium text-gray-500 col-span-4">
                     Ortalama nəticə
                   </dt>
-                  <dd class="mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <dd class="text-right text-sm text-gray-900 sm:mt-0 col-span-2">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                       {{$quiz->users_details['average_score']}}
                     </span>
@@ -106,8 +106,8 @@
                   bg-white-100
                 @else
                   bg-gray-100  
-                @endif px-4 py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-                  <dt class="text-sm font-medium sm:col-span-5">
+                @endif px-4 py-5 grid grid-cols-6 sm:gap-4 sm:px-6">
+                  <dt class="text-sm font-medium col-span-5">
                     {{$key+1}}.
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                           <img class="inline-block h-6 w-6 mb-0.5 mx-0.5 rounded-full object-cover" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" />
@@ -127,7 +127,7 @@
                     >{{$user->name}}</span>
                      
                   </dt>
-                  <dd class="mt-1 text-right text-sm text-blue-900 sm:mt-0 sm:col-span-1">
+                  <dd class="text-right text-sm text-blue-900 sm:mt-0 col-span-1">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                       {{$user->pivot->score}}
                     </span>
@@ -148,7 +148,7 @@
                         <a href="{{route('quizzes.show', ['slug'=>$quiz->slug])}}" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300">
                             Quizi görüntülə
                         </a>                      
-                        @elseif($quiz->finished_at > now())
+                        @elseif(!$quiz->finished_at || $quiz->finished_at > now())
                         <a href="{{route('quizzes.show', ['slug'=>$quiz->slug])}}" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                           Quizə qatıl
                         </a>
