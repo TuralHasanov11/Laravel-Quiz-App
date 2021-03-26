@@ -34,7 +34,7 @@ class QuestionsController extends Controller
         $data = $request->all();
         
         if($request->has('image')){
-            $fileName=Str::slug($data['question']).'_'.time().'.'.$data['image']->extension();
+            $fileName=Str::slug($data['question']).'.'.$data['image']->extension();
             $fileDirectory = 'question-images/'.$quiz->id.'/'.$fileName;
             // $request->image->move(public_path('question-images/'.$quiz->id),$fileName);
         }
@@ -64,7 +64,7 @@ class QuestionsController extends Controller
         $data = $request->all();
 
         if($request->has('image')){
-            $fileName=Str::slug($data['question']).'_'.time().'.'.$data['image']->extension();
+            $fileName=Str::slug($data['question']).'.'.$data['image']->extension();
             $fileDirectory = 'question-images/'.$quiz->id.'/'.$fileName;
 
             // $request->image->move(public_path('question-images/'.$quiz->id),$fileName);
