@@ -90,7 +90,7 @@ class QuizzesController extends Controller
         
         $quiz->delete();
 
-        rmdir(public_path('question-images').'/'.$quiz->id);
+        rmdir(public_path('question-images'.'/'.$quiz->id));
 
         return redirect()->route('admin.quizzes.index')->withSuccess('Quiz silindi!');
     }

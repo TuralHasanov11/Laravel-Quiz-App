@@ -34,6 +34,7 @@ class QuestionsController extends Controller
         $data = $request->all();
         
         if($request->has('image')){
+            
             $lastId = $quiz->questions()->count()?($quiz->questions()->count()+1):1;
             $fileName=$lastId.'-'.Str::slug($data['question']).'.'.$request->image->extension();
             $fileDirectory = 'question-images/'.$quiz->id.'/'.$fileName;
