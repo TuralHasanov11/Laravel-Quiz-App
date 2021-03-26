@@ -34,9 +34,12 @@ class QuestionsController extends Controller
         $data = $request->all();
         
         if($request->has('image')){
-            $fileName=Str::slug($data['question']).'.'.$data['image']->extension();
+            $lastId = $quiz->questions()->count()?($quiz->questions()->count()+1):1;
+            $fileName=$lastId.'-'.Str::slug($data['question']).'.'.$request->image->extension();
             $fileDirectory = 'question-images/'.$quiz->id.'/'.$fileName;
             // $request->image->move(public_path('question-images/'.$quiz->id),$fileName);
+        }else{
+            $fileDirectory = null;
         }
 
         $question = new Question(['question'=>$data['question'], 'image'=>$fileDirectory]);
@@ -64,15 +67,24 @@ class QuestionsController extends Controller
         $data = $request->all();
 
         if($request->has('image')){
-            $fileName=Str::slug($data['question']).'.'.$data['image']->extension();
+            
+            $questionIndex = 1;
+            foreach ($quiz->questions()->get() as $key => $q) {
+                if($q->id == $question->id){
+                    $questionIndex = $key+1;
+                    break;
+                }
+            }
+
+            $fileName=$questionIndex.'-'.Str::slug($data['question']).'.'.$request->image->extension();
             $fileDirectory = 'question-images/'.$quiz->id.'/'.$fileName;
 
-            // $request->image->move(public_path('question-images/'.$quiz->id),$fileName);
             
             if($question->image && file_exists(public_path($question->image))){
                 unlink(public_path($question->image));
             }
 
+            // $request->image->move(public_path('question-images/'.$quiz->id),$fileName);
             $question->image=$fileDirectory;
         }
 
